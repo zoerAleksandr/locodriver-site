@@ -1,0 +1,14 @@
+# Конфигурация HTTP-заголовков для Cloudflare Pages.
+# Документация: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Android App Links: assetlinks.json должен отдаваться как application/json.
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=300
+
+# iOS Universal Links: apple-app-site-association должен отдаваться как
+# application/json БЕЗ расширения файла. Сейчас не используется (нет Apple
+# Developer Program), но заголовок прописан на будущее.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=300

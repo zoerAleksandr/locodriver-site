@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0f1722">
+    <title>LocoDriver — учёт маршрутов и зарплаты машиниста</title>
+    <meta name="description" content="LocoDriver — приложение для машинистов локомотивов: учёт рабочего времени, расчёт зарплаты, синхронизация в облаке.">
+    <style>
+        :root {
+            --bg: #0f1722;
+            --fg: #e8edf5;
+            --muted: #8a96aa;
+            --accent: #4f8cff;
+            --accent-hover: #6aa1ff;
+            --card: #182233;
+            --border: #25324a;
+        }
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+        }
+        header { text-align: center; margin-bottom: 56px; }
+        .logo {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--accent); }
+        .tagline {
+            font-size: 18px;
+            color: var(--muted);
+            margin-top: 12px;
+        }
+        .cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 26px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--accent-hover); }
+        .btn.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 56px;
+        }
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+        }
+        .feature h3 {
+            font-size: 16px;
+            margin: 0 0 8px;
+        }
+        .feature p {
+            font-size: 14px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+        footer {
+            margin-top: 80px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        footer a { color: var(--muted); text-decoration: underline; margin: 0 8px; }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f6f8fc;
+                --fg: #0f1722;
+                --muted: #5a6577;
+                --card: #ffffff;
+                --border: #e1e6f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Loco<span>Driver</span></div>
+            <div class="tagline">Учёт маршрутов и зарплаты для машинистов локомотивов</div>
+            <div class="cta">
+                <a class="btn" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">Скачать в RuStore</a>
+            </div>
+        </header>
+
+        <section class="features">
+            <div class="feature">
+                <h3>Маршруты</h3>
+                <p>Удобный учёт явок, сдач, локомотивов, поездов и пассажирских поездок.</p>
+            </div>
+            <div class="feature">
+                <h3>Зарплата</h3>
+                <p>Автоматический расчёт по нормативам, надбавкам и ночным часам.</p>
+            </div>
+            <div class="feature">
+                <h3>Синхронизация</h3>
+                <p>Маршруты и настройки сохраняются в облаке — доступ с любого устройства.</p>
+            </div>
+            <div class="feature">
+                <h3>График работы</h3>
+                <p>Планирование смен, отдыха и отпусков с учётом производственного календаря.</p>
+            </div>
+        </section>
+
+        <footer>
+            <div>© LocoDriver</div>
+            <div style="margin-top:8px">
+                <a href="/privacy">Политика конфиденциальности</a>
+                <a href="/support">Поддержка</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
