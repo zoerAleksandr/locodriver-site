@@ -11,8 +11,6 @@
             --bg: #0f1722;
             --fg: #e8edf5;
             --muted: #8a96aa;
-            --accent: #4f8cff;
-            --accent-hover: #6aa1ff;
             --card: #182233;
             --border: #25324a;
         }
@@ -26,15 +24,20 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 80px 24px 40px;
+        .page {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        header { text-align: center; margin-bottom: 40px; }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+        }
         .logo {
             font-size: 40px;
             font-weight: 800;
@@ -48,28 +51,20 @@
             line-height: 1.5;
         }
         .cta {
+            margin-top: 32px;
             display: flex;
             justify-content: center;
-            margin-top: 32px;
         }
         .cta iframe {
             display: block;
-            margin: 0 auto;
         }
         .wip {
-            text-align: center;
-            margin-top: 48px;
-            padding: 32px 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            margin-top: 32px;
             color: var(--muted);
             font-size: 15px;
-            line-height: 1.5;
         }
         footer {
-            margin-top: auto;
-            padding-top: 40px;
+            padding: 24px;
             text-align: center;
             font-size: 13px;
             color: var(--muted);
@@ -92,8 +87,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <div class="page">
+        <div class="content">
             <div class="logo">Машинист</div>
             <div class="tagline">Приложение для машинистов локомотивов</div>
             <div class="cta">
@@ -101,10 +96,7 @@
                     src="https://www.rustore.ru/external/simple-selection/buttons?theme=coloredDark&orientation=vertical&stores=rustore%3Ahttps%3A%2F%2Fwww.rustore.ru%2Fcatalog%2Fapp%2Fcom.z_company.loco_driver%3Futm_source%3Davailable_in_rustore%26utm_medium%3Dcom.z_company.loco_driver%26rsm%3D1%26mt_link_id%3Diios36%26mt_sub1%3Dcom.z_company.loco_driver"
                     width="200" height="64" frameborder="0" style="border:none;overflow:hidden;"></iframe>
             </div>
-        </header>
-
-        <div class="wip">
-            Сайт находится в разработке
+            <div class="wip">Сайт находится в разработке</div>
         </div>
 
         <footer>
