@@ -41,7 +41,6 @@
             letter-spacing: -0.5px;
             margin-bottom: 8px;
         }
-        .logo span { color: var(--accent); }
         h1 {
             font-size: 18px;
             font-weight: 500;
@@ -81,32 +80,55 @@
             color: var(--fg);
         }
         .fallback p { color: var(--muted); margin-bottom: 16px; }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
+        .rustore-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #000;
             color: #fff;
             text-decoration: none;
-            padding: 12px 22px;
+            padding: 10px 24px 10px 16px;
+            border-radius: 12px;
+            border: 1.5px solid #333;
+            transition: border-color .15s;
+        }
+        .rustore-badge:hover { border-color: #555; }
+        .rustore-badge svg { width: 28px; height: 28px; flex-shrink: 0; }
+        .rustore-badge-text { text-align: left; line-height: 1.2; }
+        .rustore-badge-small {
+            font-size: 9px;
+            letter-spacing: 0.3px;
+            opacity: 0.7;
+            display: block;
+        }
+        .rustore-badge-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: block;
+        }
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 10px 20px;
             border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             margin: 6px 4px;
-            transition: background .15s;
-        }
-        .btn:hover, .btn:active { background: var(--accent-hover); }
-        .btn.secondary {
-            background: transparent;
-            color: var(--accent);
             border: 1px solid var(--border);
+            transition: border-color .15s;
         }
+        .btn:hover { border-color: var(--accent); }
         .footer {
             margin-top: auto;
             padding-top: 32px;
             font-size: 12px;
             color: var(--muted);
         }
-        .footer a { color: var(--muted); text-decoration: underline; }
-        /* 404 mode */
+        .footer a { color: var(--muted); text-decoration: underline; margin: 0 8px; }
+        .footer a:hover { color: var(--fg); }
         .not-found { display: none; }
         .not-found.show { display: block; }
         .share-mode { display: block; }
@@ -124,7 +146,7 @@
 </head>
 <body>
     <div class="wrap">
-        <div class="logo">Loco<span>Driver</span></div>
+        <div class="logo">Машинист</div>
 
         <!-- Share redirect mode -->
         <div class="share-mode" id="share-mode">
@@ -134,12 +156,21 @@
 
             <div class="fallback" id="fallback">
                 <h2>Приложение не открылось?</h2>
-                <p>Установите LocoDriver, чтобы открывать маршруты по ссылке.</p>
-                <a class="btn" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">
-                    Скачать в RuStore
+                <p>Установите приложение «Машинист», чтобы открывать маршруты по ссылке.</p>
+                <a class="rustore-badge" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="7" fill="#0077FF"/>
+                        <path d="M8 11.5C8 9.567 9.567 8 11.5 8h3.75c1.933 0 3.5 1.567 3.5 3.5v0c0 1.933-1.567 3.5-3.5 3.5H8V11.5z" fill="#fff"/>
+                        <path d="M8 17h7.25c1.933 0 3.5 1.567 3.5 3.5v0c0 1.933-1.567 3.5-3.5 3.5H11.5C9.567 24 8 22.433 8 20.5V17z" fill="#fff" fill-opacity=".6"/>
+                        <path d="M15.25 15l8.75 9h-5.5L12 17l3.25-2z" fill="#fff" fill-opacity=".85"/>
+                    </svg>
+                    <span class="rustore-badge-text">
+                        <span class="rustore-badge-small">Доступно в</span>
+                        <span class="rustore-badge-name">RuStore</span>
+                    </span>
                 </a>
                 <br>
-                <a class="btn secondary" id="btn-retry" href="#">Попробовать снова</a>
+                <a class="btn" id="btn-retry" href="#">Попробовать снова</a>
             </div>
         </div>
 
@@ -152,6 +183,8 @@
 
         <div class="footer">
             <a href="/">На главную</a>
+            <a href="https://www.consultant.ru/cons/cgi/online.cgi?req=doc&base=LAW&n=499769&dst=100001#uhadW7VIGL823YPg">Политика конфиденциальности</a>
+            <a href="mailto:locodriver.app@yandex.ru?subject=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8E%20%22%D0%9C%D0%B0%D1%88%D0%B8%D0%BD%D0%B8%D1%81%D1%82%22">Поддержка</a>
         </div>
     </div>
 
@@ -160,18 +193,14 @@
             var path = window.location.pathname.replace(/\/+$/, '');
             var segments = path.split('/').filter(Boolean);
 
-            // Проверяем, что URL начинается с /r/ — это share deep link.
-            // Если нет — показываем обычную 404 страницу.
             var rIdx = segments.indexOf('r');
             if (rIdx < 0 || segments.length <= rIdx + 1) {
-                // Не share-ссылка → показываем 404
                 document.getElementById('share-mode').className = 'share-mode hide';
                 document.getElementById('not-found').className = 'not-found show';
                 return;
             }
 
-            // Share mode — извлекаем id
-            document.getElementById('page-title').textContent = 'Открываем маршрут в LocoDriver…';
+            document.getElementById('page-title').textContent = 'Открываем маршрут в Машинист…';
             var shareId = segments[rIdx + 1].split('?')[0].split('#')[0];
 
             if (!shareId) {
@@ -188,12 +217,10 @@
                 window.location.href = deepLink;
             });
 
-            // Попытка открыть приложение через кастомную схему.
             try {
                 window.location.replace(deepLink);
             } catch (_) {}
 
-            // Через 1.5 секунды показываем fallback.
             setTimeout(function () {
                 document.getElementById('fallback').className = 'fallback show';
             }, 1500);
