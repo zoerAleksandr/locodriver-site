@@ -80,32 +80,9 @@
             color: var(--fg);
         }
         .fallback p { color: var(--muted); margin-bottom: 16px; }
-        .rustore-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #000;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 24px 10px 16px;
-            border-radius: 12px;
-            border: 1.5px solid #333;
-            transition: border-color .15s;
-        }
-        .rustore-badge:hover { border-color: #555; }
-        .rustore-badge svg { width: 28px; height: 28px; flex-shrink: 0; }
-        .rustore-badge-text { text-align: left; line-height: 1.2; }
-        .rustore-badge-small {
-            font-size: 9px;
-            letter-spacing: 0.3px;
-            opacity: 0.7;
+        .fallback iframe {
             display: block;
-        }
-        .rustore-badge-name {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            display: block;
+            margin: 0 auto 8px;
         }
         .btn {
             display: inline-block;
@@ -157,18 +134,9 @@
             <div class="fallback" id="fallback">
                 <h2>Приложение не открылось?</h2>
                 <p>Установите приложение «Машинист», чтобы открывать маршруты по ссылке.</p>
-                <a class="rustore-badge" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">
-                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="32" height="32" rx="7" fill="#0077FF"/>
-                        <path d="M8 11.5C8 9.567 9.567 8 11.5 8h3.75c1.933 0 3.5 1.567 3.5 3.5v0c0 1.933-1.567 3.5-3.5 3.5H8V11.5z" fill="#fff"/>
-                        <path d="M8 17h7.25c1.933 0 3.5 1.567 3.5 3.5v0c0 1.933-1.567 3.5-3.5 3.5H11.5C9.567 24 8 22.433 8 20.5V17z" fill="#fff" fill-opacity=".6"/>
-                        <path d="M15.25 15l8.75 9h-5.5L12 17l3.25-2z" fill="#fff" fill-opacity=".85"/>
-                    </svg>
-                    <span class="rustore-badge-text">
-                        <span class="rustore-badge-small">Доступно в</span>
-                        <span class="rustore-badge-name">RuStore</span>
-                    </span>
-                </a>
+                <iframe
+                    src="https://www.rustore.ru/external/simple-selection/buttons?theme=coloredDark&orientation=vertical&stores=rustore%3Ahttps%3A%2F%2Fwww.rustore.ru%2Fcatalog%2Fapp%2Fcom.z_company.loco_driver%3Futm_source%3Davailable_in_rustore%26utm_medium%3Dcom.z_company.loco_driver%26rsm%3D1%26mt_link_id%3Diios36%26mt_sub1%3Dcom.z_company.loco_driver"
+                    width="200" height="64" frameborder="0" style="border:none;overflow:hidden;"></iframe>
                 <br>
                 <a class="btn" id="btn-retry" href="#">Попробовать снова</a>
             </div>
