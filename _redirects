@@ -1,8 +1,0 @@
-# Cloudflare Pages — redirect/rewrite rules.
-# Формат: <source> <destination> <status>
-# Документация: https://developers.cloudflare.com/pages/configuration/redirects/
-
-# Rewrite /r/{любой_id} → /r/index.html со статусом 200 (rewrite, не redirect).
-# URL в адресной строке сохраняется, а JS на странице извлекает id из
-# window.location.pathname и пытается открыть locodriver://share/{id}.
-/r/*   /r/index.html   200

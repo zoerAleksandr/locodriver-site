@@ -1,29 +1,11 @@
-/**
- * Cloudflare Pages Function — обрабатывает запросы /r/{id}.
- *
- * Возвращает HTML redirect-страницу с уже подставленным server-side
- * идентификатором маршрута. Страница через JavaScript пытается открыть
- * deep link locodriver://share/{id}, а через 1.5 секунды показывает
- * fallback-кнопку «Скачать в RuStore».
- *
- * Почему HTML внутри функции, а не отдельный файл:
- *  - Cloudflare Pages free tier не поддерживает dynamic splat rewrites в _redirects
- *  - env.ASSETS.fetch с rewrite-ом URL работает нестабильно
- *  - Подход с одной функцией, содержащей весь HTML, гарантированно работает
- *    и не требует дополнительной инфраструктуры
- *
- * Cloudflare автоматически парсит [id] из имени файла и кладёт его
- * в context.params.id при запросе вида /r/{что_угодно}.
- */
-
-const HTML_TEMPLATE = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0f1722">
-    <title>Открываем маршрут в LocoDriver…</title>
     <meta name="robots" content="noindex">
+    <title id="page-title">Страница не найдена</title>
     <style>
         :root {
             --bg: #0f1722;
@@ -124,6 +106,11 @@ const HTML_TEMPLATE = `<!DOCTYPE html>
             color: var(--muted);
         }
         .footer a { color: var(--muted); text-decoration: underline; }
+        /* 404 mode */
+        .not-found { display: none; }
+        .not-found.show { display: block; }
+        .share-mode { display: block; }
+        .share-mode.hide { display: none; }
         @media (prefers-color-scheme: light) {
             :root {
                 --bg: #f6f8fc;
@@ -138,18 +125,29 @@ const HTML_TEMPLATE = `<!DOCTYPE html>
 <body>
     <div class="wrap">
         <div class="logo">Loco<span>Driver</span></div>
-        <div class="spinner"></div>
-        <h1>Открываем маршрут…</h1>
-        <p id="hint">Если приложение установлено, оно откроется автоматически.</p>
 
-        <div class="fallback" id="fallback">
-            <h2>Приложение не открылось?</h2>
-            <p>Установите LocoDriver, чтобы открывать маршруты по ссылке.</p>
-            <a class="btn" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">
-                Скачать в RuStore
-            </a>
-            <br>
-            <a class="btn secondary" id="btn-retry" href="#">Попробовать снова</a>
+        <!-- Share redirect mode -->
+        <div class="share-mode" id="share-mode">
+            <div class="spinner"></div>
+            <h1>Открываем маршрут…</h1>
+            <p id="hint">Если приложение установлено, оно откроется автоматически.</p>
+
+            <div class="fallback" id="fallback">
+                <h2>Приложение не открылось?</h2>
+                <p>Установите LocoDriver, чтобы открывать маршруты по ссылке.</p>
+                <a class="btn" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver">
+                    Скачать в RuStore
+                </a>
+                <br>
+                <a class="btn secondary" id="btn-retry" href="#">Попробовать снова</a>
+            </div>
+        </div>
+
+        <!-- 404 mode -->
+        <div class="not-found" id="not-found">
+            <h1>Страница не найдена</h1>
+            <p>Запрошенная страница не существует.</p>
+            <a class="btn" href="/">На главную</a>
         </div>
 
         <div class="footer">
@@ -158,18 +156,32 @@ const HTML_TEMPLATE = `<!DOCTYPE html>
     </div>
 
     <script>
-        // shareId уже подставлен на сервере — без парсинга window.location.
         (function () {
-            const shareId = "__SHARE_ID__";
+            var path = window.location.pathname.replace(/\/+$/, '');
+            var segments = path.split('/').filter(Boolean);
 
-            if (!shareId) {
-                document.getElementById('hint').textContent = 'Ссылка повреждена.';
-                document.getElementById('fallback').classList.add('show');
+            // Проверяем, что URL начинается с /r/ — это share deep link.
+            // Если нет — показываем обычную 404 страницу.
+            var rIdx = segments.indexOf('r');
+            if (rIdx < 0 || segments.length <= rIdx + 1) {
+                // Не share-ссылка → показываем 404
+                document.getElementById('share-mode').className = 'share-mode hide';
+                document.getElementById('not-found').className = 'not-found show';
                 return;
             }
 
-            const deepLink = 'locodriver://share/' + encodeURIComponent(shareId);
-            const retryBtn = document.getElementById('btn-retry');
+            // Share mode — извлекаем id
+            document.getElementById('page-title').textContent = 'Открываем маршрут в LocoDriver…';
+            var shareId = segments[rIdx + 1].split('?')[0].split('#')[0];
+
+            if (!shareId) {
+                document.getElementById('hint').textContent = 'Ссылка повреждена.';
+                document.getElementById('fallback').className = 'fallback show';
+                return;
+            }
+
+            var deepLink = 'locodriver://share/' + encodeURIComponent(shareId);
+            var retryBtn = document.getElementById('btn-retry');
             retryBtn.href = deepLink;
             retryBtn.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -177,40 +189,15 @@ const HTML_TEMPLATE = `<!DOCTYPE html>
             });
 
             // Попытка открыть приложение через кастомную схему.
-            // На Android с настроенными App Links эта страница вообще не
-            // загрузится — ОС перехватит ссылку и откроет приложение напрямую.
             try {
                 window.location.replace(deepLink);
-            } catch (_) { /* ignore */ }
+            } catch (_) {}
 
-            // Через 1.5 секунды показываем fallback с кнопкой магазина.
+            // Через 1.5 секунды показываем fallback.
             setTimeout(function () {
-                document.getElementById('fallback').classList.add('show');
+                document.getElementById('fallback').className = 'fallback show';
             }, 1500);
         })();
     </script>
 </body>
-</html>`;
-
-export async function onRequest(context) {
-    // Cloudflare Pages автоматически парсит [id] из имени файла функции
-    // и кладёт его в context.params.id при запросах /r/{что_угодно}.
-    const rawId = context.params.id ?? "";
-    // На случай, если id содержит подпуть (из-за catch-all в других настройках)
-    const id = Array.isArray(rawId) ? rawId[0] : String(rawId);
-
-    // Экранируем id, чтобы не сломать строку в JS и не позволить XSS.
-    // Разрешаем только безопасные символы UUID/id: буквы, цифры, дефис,
-    // подчёркивание, точка. Остальное заменяем на пустую строку.
-    const safeId = id.replace(/[^A-Za-z0-9._-]/g, "");
-
-    const html = HTML_TEMPLATE.replace("__SHARE_ID__", safeId);
-
-    return new Response(html, {
-        status: 200,
-        headers: {
-            "content-type": "text/html; charset=utf-8",
-            "cache-control": "public, max-age=60",
-        },
-    });
-}
+</html>
