@@ -209,9 +209,9 @@ ul{margin:0}
 .cookie__all{border:none;background:var(--accent);color:#fff;font-weight:700;padding:12px 20px}
 
 /* ═══ Phone device frame (holds an app screenshot PNG, 780×1800) ═══ */
-.phone{width:100%;max-width:var(--pw,260px);margin:0 auto;background:#0A0E14;
-  border-radius:14%/6.4%;padding:2.6%;box-shadow:0 24px 60px rgba(10,14,20,.18)}
-.phone img{width:100%;height:auto;aspect-ratio:780/1800;display:block;border-radius:11.5%/5.2%;background:var(--surface)}
+.phone{width:100%;max-width:var(--pw,260px);margin:0 auto}
+.phone img{width:100%;height:auto;aspect-ratio:780/1800;display:block;border-radius:9%/4%;
+  background:var(--surface);box-shadow:0 24px 60px rgba(10,14,20,.18)}
 
 /* ── Legal pages ── */
 .legal-header{border-bottom:1px solid var(--border);background:var(--surface)}
