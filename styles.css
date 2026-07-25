@@ -232,6 +232,11 @@ ul{margin:0}
 .legal-list{margin:8px 0 0;padding-left:0;list-style:none}
 .legal-list li{display:flex;gap:10px;margin-bottom:8px}
 .legal-list li::before{content:"";flex:none;width:6px;height:6px;border-radius:3px;margin-top:9px;background:var(--accent)}
+.legal-table-wrap{overflow-x:auto;margin:14px 0;-webkit-overflow-scrolling:touch}
+.legal-table{border-collapse:collapse;min-width:760px;width:100%;font-size:13px;line-height:1.45}
+.legal-table th,.legal-table td{border:1px solid var(--border);padding:9px 11px;text-align:left;vertical-align:top;color:var(--muted)}
+.legal-table th{background:var(--bg);color:var(--ink);font-weight:700;font-size:12px;white-space:nowrap}
+.legal-table td.purpose{background:var(--accentSoft);color:var(--ink);font-weight:600}
 
 /* ═══ Responsive ═══ */
 @media(max-width:1024px){
