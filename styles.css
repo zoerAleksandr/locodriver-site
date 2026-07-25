@@ -244,7 +244,7 @@ ul{margin:0}
 @media(max-width:900px){
   .phone-grid-4{grid-template-columns:1fr 1fr}
   .route-step{grid-template-columns:1fr;gap:24px}
-  .route-step__phone{order:-1}
+  .route-copy{order:-1}
   .sec-pad{padding:72px 0}
   .features{margin-top:0}
 }
