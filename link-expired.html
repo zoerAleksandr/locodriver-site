@@ -45,7 +45,10 @@
   .status-icon--warn{background:rgba(255,138,0,.12);color:var(--warning)}
   .auth-card h1{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-bottom:12px}
   .auth-sub{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 28px}
-  .auth-support{font-size:14px;color:var(--muted)}
+  .auth-btn{display:inline-block;padding:13px 24px;border-radius:14px;background:var(--accent);
+    color:#fff;font-size:15px;font-weight:700;font-family:var(--sans);border:none;cursor:pointer}
+  .auth-btn:hover{background:var(--accentHover);color:#fff}
+  .auth-support{margin-top:24px;font-size:14px;color:var(--muted)}
   .auth-support a{font-weight:600}
   @media(max-width:1024px){.wrap{padding:0 28px}}
   @media(max-width:680px){.wrap{padding:0 20px}}
@@ -71,9 +74,55 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
     </div>
     <h1>Срок действия ссылки истёк</h1>
-    <p class="auth-sub">Ссылка для восстановления пароля действует ограниченное время. Запросите восстановление ещё раз в приложении «Машинист» — на почту придёт новое письмо.</p>
+    <p class="auth-sub">Ссылка для восстановления пароля действует 10 минут. Вернитесь в приложение «Машинист» и запросите восстановление ещё раз — на почту придёт новое письмо.</p>
+    <button class="auth-btn" id="open-app" type="button">Вернуться в приложение</button>
     <div class="auth-support">Нужна помощь? <a href="mailto:locodriver.app@yandex.ru">locodriver.app@yandex.ru</a></div>
   </div>
 </main>
+
+<script>
+(function () {
+  // Куда возвращаемся в приложении (кастомная схема «Машиниста»).
+  var APP_URL = "locodriver://profile";
+
+  var STORE_ANDROID = "https://www.rustore.ru/catalog/app/com.z_company.loco_driver";
+  var STORE_IOS     = "https://locodriver.ru"; // TODO: заменить на App Store, когда выйдет iOS-версия
+  var STORE_FALLBACK = STORE_ANDROID;          // десктоп и прочее
+
+  function storeUrl() {
+    var ua = navigator.userAgent || "";
+    if (/android/i.test(ua)) return STORE_ANDROID;
+    // iPad на iOS 13+ маскируется под Mac — ловим по тач-скрину
+    if (/iphone|ipad|ipod/i.test(ua) ||
+        (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) return STORE_IOS;
+    return STORE_FALLBACK;
+  }
+
+  var btn = document.getElementById("open-app");
+  if (!btn) return;
+
+  btn.addEventListener("click", function () {
+    var target = storeUrl();
+    var didHide = false;
+
+    // Если приложение открылось — вкладка уходит в фон, отменяем редирект в стор.
+    function onVisibility() { if (document.hidden) didHide = true; }
+    function markHidden() { didHide = true; }
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", markHidden);
+    window.addEventListener("blur", markHidden);
+
+    setTimeout(function () {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", markHidden);
+      window.removeEventListener("blur", markHidden);
+      if (!didHide) window.location.href = target; // приложения нет — уводим в стор
+    }, 1500);
+
+    // Пытаемся открыть приложение.
+    window.location.href = APP_URL;
+  });
+})();
+</script>
 </body>
 </html>
