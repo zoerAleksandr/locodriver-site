@@ -159,6 +159,11 @@ ul{margin:0}
 .price-card__price{font-family:var(--mono);font-size:34px;font-weight:800;letter-spacing:-1px}
 .price-card__per{font-size:13.5px;margin-top:8px;color:var(--muted)}
 .price-card.best .price-card__per{color:var(--d-muted)}
+/* Акция (промо-скидка из кабинета): оранжевый бейдж, зачёркнутая старая цена, срок */
+.price-card__tag--promo,
+.price-card.best .price-card__tag--promo{background:#F0A84F;color:#fff}
+.price-card__old{text-decoration:line-through;opacity:.5;font-weight:600;font-size:.6em;margin-right:8px}
+.price-card__until{margin-top:8px;font-family:var(--mono);font-size:12px;font-weight:700;color:#F0A84F}
 
 /* ── FAQ ── */
 .faq{max-width:900px}

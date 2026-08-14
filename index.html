@@ -267,7 +267,7 @@
         <div class="plan__inner">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span class="plan__kick" style="margin-bottom:0">МАШИНИСТ PRO</span></div>
           <div style="margin-bottom:28px">
-            <div style="display:flex;align-items:baseline;gap:8px"><span class="plan__price" style="white-space:nowrap;flex:none">от 50 ₽</span><span style="font-size:16px;color:var(--d-muted)">/ мес</span></div>
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="plan__price" id="ld-pro-permonth" style="white-space:nowrap;flex:none">от 50 ₽</span><span style="font-size:16px;color:var(--d-muted)">/ мес</span></div>
             <div style="font-size:15px;color:var(--d-muted);margin-top:4px">при оплате за год</div>
           </div>
           <ul class="bullets-pro">
@@ -280,8 +280,10 @@
       </div>
     </div>
     <div class="price-compare">
-      <div class="price-compare__kick">БОЛЬШЕ ПОДПИСКА — БОЛЬШЕ ВЫГОДЫ</div>
-      <div class="price-3">
+      <div class="price-compare__kick" id="ld-price-kick">БОЛЬШЕ ПОДПИСКА — БОЛЬШЕ ВЫГОДЫ</div>
+      <!-- Карточки ниже — фолбэк на случай, если API недоступен; при загрузке
+           тарифов заменяются актуальными (с ценами и скидками) из /v1/tariffs. -->
+      <div class="price-3" id="ld-price-3">
         <div class="price-card"><div class="price-card__name">Месяц</div><div class="price-card__price">69 ₽</div></div>
         <div class="price-card"><span class="price-card__tag">−13%</span><div class="price-card__name">3 месяца</div><div class="price-card__price">179 ₽</div><div class="price-card__per">≈ 60 ₽ / мес</div></div>
         <div class="price-card best"><span class="price-card__tag">−27%</span><div class="price-card__name">Год</div><div class="price-card__price">599 ₽</div><div class="price-card__per">≈ 50 ₽ / мес</div></div>
@@ -399,6 +401,67 @@
       try { localStorage.setItem(KEY, btn.getAttribute('data-consent')); } catch(e){}
       bar.hidden = true;
     });
+  })();
+  // Актуальные цены и скидки подписки из того же источника, что и приложение:
+  //   GET https://api.locodriver.ru/v1/tariffs
+  // Цены/скидки меняются в кабинете администратора. При ошибке остаются
+  // захардкоженные карточки-фолбэк (ничего не ломается).
+  (function(){
+    var API = 'https://api.locodriver.ru/v1/tariffs';
+    var host = document.getElementById('ld-price-3');
+    if (!host) return;
+
+    function esc(s){ return String(s).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+    function rub(n){ return Math.round(n).toLocaleString('ru-RU') + ' ₽'; }
+    function months(t){ return Math.max(1, Math.round(t.periodDays/30)); }
+    function planName(t){ var m=months(t);
+      return m===1?'Месяц':(m===3?'3 месяца':(m===12?'Год':esc(t.title))); }
+    function fmtUntil(ms){ if(!ms) return null; var d=new Date(ms);
+      function p(n){return String(n).padStart(2,'0');}
+      return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear(); }
+
+    function card(t, best, tier, anyPromo){
+      var promo = t.discountActive && t.discountPercent>0;
+      var m = months(t);
+      var h = '<div class="price-card'+(best?' best':'')+'">';
+      if (promo) h += '<span class="price-card__tag price-card__tag--promo">Акция −'+t.discountPercent+'%</span>';
+      else if (!anyPromo && tier>0) h += '<span class="price-card__tag">−'+tier+'%</span>';
+      h += '<div class="price-card__name">'+planName(t)+'</div>';
+      h += '<div class="price-card__price">';
+      if (promo) h += '<span class="price-card__old">'+rub(t.basePrice)+'</span>';
+      h += rub(t.price)+'</div>';
+      if (m>1) h += '<div class="price-card__per">≈ '+Math.round(t.price/m)+' ₽ / мес</div>';
+      if (promo && t.discountUntil) h += '<div class="price-card__until">Действует до '+fmtUntil(t.discountUntil)+'</div>';
+      h += '</div>';
+      return h;
+    }
+
+    fetch(API, { headers:{ 'Accept':'application/json' } })
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(data){
+        var ts = (data && data.tariffs) || [];
+        if (!ts.length) return;                       // оставляем фолбэк
+        ts = ts.slice().sort(function(a,b){ return a.periodDays - b.periodDays; });
+        var anyPromo = ts.some(function(t){ return t.discountActive && t.discountPercent>0; });
+        var maxPeriod = Math.max.apply(null, ts.map(function(t){ return t.periodDays; }));
+        var monthlyBase = Math.min.apply(null, ts.map(function(t){ return t.price/months(t); }));
+
+        host.innerHTML = ts.map(function(t){
+          var perMonth = t.price/months(t);
+          var tier = Math.round(100*(1 - perMonth/monthlyBase));
+          return card(t, t.periodDays===maxPeriod, tier, anyPromo);
+        }).join('');
+
+        // «от N ₽ / мес» в карточке Pro — из самого выгодного (годового) тарифа.
+        var year = ts.filter(function(t){ return t.periodDays===maxPeriod; })[0];
+        var pro = document.getElementById('ld-pro-permonth');
+        if (year && pro) pro.textContent = 'от ' + Math.round(year.price/12) + ' ₽';
+
+        var kick = document.getElementById('ld-price-kick');
+        if (kick && anyPromo) kick.textContent = 'СЕЙЧАС ДЕЙСТВУЕТ АКЦИЯ';
+      })
+      .catch(function(){ /* фолбэк-карточки уже в разметке */ });
   })();
 </script>
 </body>
