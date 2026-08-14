@@ -429,7 +429,7 @@
       else if (!anyPromo && tier>0) h += '<span class="price-card__tag">−'+tier+'%</span>';
       h += '<div class="price-card__name">'+planName(t)+'</div>';
       h += '<div class="price-card__price">';
-      if (promo) h += '<span class="price-card__old">'+rub(t.basePrice)+'</span>';
+      if (promo) h += '<span class="price-card__old" style="text-decoration:line-through;opacity:.5;font-weight:600;font-size:.55em;margin-right:12px">'+rub(t.basePrice)+'</span>';
       h += rub(t.price)+'</div>';
       if (m>1) h += '<div class="price-card__per">≈ '+Math.round(t.price/m)+' ₽ / мес</div>';
       if (promo && t.discountUntil) h += '<div class="price-card__until">Действует до '+fmtUntil(t.discountUntil)+'</div>';
