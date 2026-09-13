@@ -108,6 +108,7 @@ adb shell pm get-app-links com.z_company.loco_driver
 | Появилась публикация в Google Play | Добавить второй SHA-256 (из Play Console → App signing) в `sha256_cert_fingerprints` |
 | Появился платный Apple Developer Program | Добавить файл `.well-known/apple-app-site-association` (формат описан в Apple docs) |
 | Хочется обновить лендинг | Редактируйте `index.html` |
+| Появилась новость (релиз, новая функция) | Добавьте `<article class="news-item">` **сверху** списка в `news.html` и обновите выдержку в секции `NEWS` в `index.html` (заголовок, дата, текст, ссылка «Подробнее» на якорь новости) |
 | Сменился иконка/название стора | Обновите ссылки в `index.html` и `r/index.html` |
 
 ## Структура исходящей и входящей ссылки

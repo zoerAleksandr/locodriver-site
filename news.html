@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F3F5">
+<title>Новости — Машинист</title>
+<meta name="description" content="Новости приложения «Машинист» для локомотивных бригад: новые версии, функции и веб-версия на app.locodriver.ru.">
+<meta property="og:title" content="Новости — Машинист">
+<meta property="og:description" content="«Машинист» теперь работает в браузере — на iPhone, Android и компьютере.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><text x="16" y="16.5" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, sans-serif" font-weight="900" font-size="29" letter-spacing="-1.2" fill="currentColor">М</text></svg>
+      <span>Машинист</span>
+    </a>
+    <nav class="nav hide-m">
+      <a href="index.html#features">Возможности</a>
+      <a href="index.html#calendar">График</a>
+      <a href="index.html#stats">Статистика</a>
+      <a href="index.html#pricing">Тарифы</a>
+      <a href="news.html" style="color:var(--ink)">Новости</a>
+    </nav>
+    <a class="rustore rustore--small" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver" target="_blank" rel="noopener">
+      <span class="rustore__icon"><img src="rustore-icon.webp" alt="RuStore" width="22" height="22"></span>
+      <span class="rustore__cap"><small>Доступно в</small><b>RuStore</b></span>
+    </a>
+  </div>
+</header>
+
+<!-- ═══════════════ INTRO ═══════════════ -->
+<section class="news-intro">
+  <div class="wrap">
+    <div class="sec-eyebrow"><span class="sec-eyebrow__n">NEWS</span><span class="sec-eyebrow__l">Новости</span></div>
+    <h1>Что нового в «Машинисте».</h1>
+    <p class="lead">Новые версии, функции и важные изменения — коротко и по делу.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ NEWS LIST ═══════════════
+     Новые записи добавляйте СВЕРХУ. Выдержку из самой свежей — обновляйте
+     в index.html (секция NEWS). ═══════════════ -->
+<main class="wrap news-list">
+
+  <!-- ── 2026-09-13 · Веб-версия (PWA) ── -->
+  <article class="news-item" id="pwa">
+    <div class="news-card__meta"><span class="news-tag">ВЕБ-ВЕРСИЯ</span><time class="news-date" datetime="2026-09-13">13 сентября 2026</time></div>
+    <h2><a href="#pwa">«Машинист» теперь работает в браузере — на iPhone, Android и компьютере.</a></h2>
+
+    <p>Мы выпустили веб-версию приложения. Она открывается по адресу <b><a href="https://app.locodriver.ru/" target="_blank" rel="noopener">app.locodriver.ru</a></b> в любом современном браузере, а на iPhone ставится на главный экран как обычное приложение — со своей иконкой и без адресной строки.</p>
+    <p>Веб-версия и приложение из RuStore работают вместе: <b>маршрутами можно делиться между ними</b> — ссылка, отправленная из приложения, откроется в веб-версии, и наоборот.</p>
+
+    <h3>Что умеет веб-версия</h3>
+    <p><b>Всё то же, что и приложение на Android.</b> Это не облегчённая версия — те же экраны, те же настройки и тот же расчёт. Основное:</p>
+    <ul class="bullets">
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Расчёт вспомогательного времени<small>Приёмка и сдача локомотива и другие операции — по нормам вашего депо, время подставляется автоматически.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Учёт топлива в литрах и килограммах<small>Показания при приёмке и сдаче, расход за поездку — с учётом вспомогательного счётчика.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Техническая и участковая скорость<small>Считаются по каждому поезду прямо в маршруте.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Расчёт времени отдыха<small>Домашний отдых и отдых в пункте оборота — приложение само подскажет, когда можно на явку.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Расчёт зарплаты и расчётный лист<small>Считает тот же модуль, что и в приложении, — цифры совпадают до копейки.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Календарь, отвлечения и мастер «Заполнить месяц»<small>Позволяет заполнить все маршруты на месяц вперёд за пару кликов.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Статистика и выгрузка в PDF</span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Обмен маршрутами с приложением<small>Можно делиться маршрутом со всеми данными со своим напарником: заполнил один — пользуются оба.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Работает офлайн<small>После первого открытия загружается и без сети; данные хранятся на устройстве.</small></span></li>
+      <li><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Тот же аккаунт и та же подписка Pro<small>С Pro маршруты и настройки синхронизируются между телефоном и браузером. Оформить или продлить подписку можно прямо в веб-версии.</small></span></li>
+    </ul>
+
+    <h3 id="pwa-install">Где открыть</h3>
+    <div class="platform-list">
+      <div class="platform">
+        <div class="platform__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10 5.5h4"/><path d="M11 18.5h2"/></svg></div>
+        <div><h4>iPhone и iPad</h4><p>Откройте адрес в Safari и добавьте на экран «Домой» — три шага <a href="#pwa-install-ios">ниже</a>. Дальше «Машинист» запускается с иконки, как обычное приложение.</p></div>
+      </div>
+      <div class="platform">
+        <div class="platform__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg></div>
+        <div><h4>Android</h4><p>Откройте адрес в браузере — или пользуйтесь приложением из RuStore, как раньше.</p></div>
+      </div>
+      <div class="platform">
+        <div class="platform__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="12" rx="2.5"/><path d="M2 19.5h20"/></svg></div>
+        <div><h4>Компьютер</h4><p>Любой браузер — просто откройте адрес. Удобно, когда нужно спокойно заполнить месяц или свериться с расчётным листом на большом экране.</p></div>
+      </div>
+    </div>
+
+    <h3 id="pwa-install-ios">Как поставить на iPhone</h3>
+    <div class="install-steps">
+      <div class="install-step">
+        <div class="phone" style="--pw:220px"><img src="screenshots/ios-install-1.png" alt="Safari на iPhone: меню вкладки с пунктом «Поделиться»" width="780" height="1688" loading="lazy"></div>
+        <div class="install-step__n"></div>
+        <p>Откройте <span class="k">app.locodriver.ru</span> в Safari, нажмите кнопку меню и выберите <b>«Поделиться»</b>.</p>
+      </div>
+      <div class="install-step">
+        <div class="phone" style="--pw:220px"><img src="screenshots/ios-install-2.png" alt="Меню «Поделиться» в Safari с пунктом «Добавить на экран „Домой“»" width="780" height="1688" loading="lazy"></div>
+        <div class="install-step__n"></div>
+        <p>В списке действий нажмите <b>«Добавить на экран „Домой“»</b>.</p>
+      </div>
+      <div class="install-step">
+        <div class="phone" style="--pw:220px"><img src="screenshots/ios-install-3.png" alt="Диалог «На экран „Домой“» с включённым переключателем «Открыть как веб-приложение» и кнопкой «Добавить»" width="780" height="1688" loading="lazy"></div>
+        <div class="install-step__n"></div>
+        <p>Проверьте, что включено <b>«Открыть как веб-приложение»</b>, и нажмите <b>«Добавить»</b>. Иконка «Машиниста» появится на главном экране.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:32px">Если возникнут вопросы — пишите на <a href="mailto:locodriver.app@yandex.ru">locodriver.app@yandex.ru</a>.</p>
+
+    <div class="rowflex cta">
+      <a class="btn-web" href="https://app.locodriver.ru/" target="_blank" rel="noopener">Открыть веб-версию
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </article>
+
+</main>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="wrap top">
+    <div class="footer-brand">
+      <div class="row">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><text x="16" y="16.5" text-anchor="middle" dominant-baseline="central" font-family="Inter, system-ui, sans-serif" font-weight="900" font-size="29" letter-spacing="-1.2" fill="currentColor">М</text></svg>
+        <span>Машинист</span>
+      </div>
+      <p>Учёт смен, маршрутов и зарплаты для локомотивных бригад.</p>
+      <div style="margin-top:16px">
+        <a class="rustore rustore--small" href="https://www.rustore.ru/catalog/app/com.z_company.loco_driver" target="_blank" rel="noopener">
+          <span class="rustore__icon"><img src="rustore-icon.webp" alt="RuStore" width="22" height="22"></span>
+          <span class="rustore__cap"><small>Доступно в</small><b>RuStore</b></span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="title">ПРОДУКТ</div>
+        <div class="links"><a href="index.html#features">Возможности</a><a href="index.html#calendar">График</a><a href="index.html#stats">Статистика</a><a href="index.html#pricing">Тарифы</a><a href="news.html">Новости</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="title">ПРАВОВАЯ ИНФОРМАЦИЯ</div>
+        <div class="links"><a href="privacy.html">Политика обработки ПДн</a><a href="consent.html">Согласие на обработку ПДн</a><a href="privacy.html">Политика cookie</a><a href="license.html">Лицензионное соглашение</a><a href="offer.html">Публичная оферта</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="title">КОНТАКТЫ</div>
+        <div class="links"><a href="mailto:locodriver.app@yandex.ru">locodriver.app@yandex.ru</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <div class="wrap">
+      <div class="op">Оператор персональных данных: самозанятый Ящук Александр Александрович, ИНН 781635984743, e-mail locodriver.app@yandex.ru. Персональные данные обрабатываются и хранятся на серверах на территории РФ.</div>
+      <div>© 2026 · Машинист</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════ COOKIE BANNER (152-ФЗ) ═══════════════ -->
+<div class="cookie" id="cookieBar" hidden>
+  <div class="cookie__inner">
+    <div class="cookie__text">
+      <b>Мы используем файлы cookie</b>
+      <p>Cookie и метрика нужны для работы сайта и аналитики. Продолжая, вы соглашаетесь с их использованием. Подробнее — в <a href="privacy.html">Политике обработки персональных данных</a>.</p>
+    </div>
+    <div class="cookie__btns">
+      <button class="cookie__necessary" data-consent="necessary">Только необходимые</button>
+      <button class="cookie__all" data-consent="all">Принять все</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Header: фон при скролле > 12px
+  (function(){
+    var h = document.getElementById('siteHeader');
+    var onScroll = function(){ h.classList.toggle('scrolled', window.scrollY > 12); };
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+  })();
+  // Cookie consent: тот же ключ, что на главной
+  (function(){
+    var KEY = 'mashinist_cookie_consent_v1';
+    var bar = document.getElementById('cookieBar');
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch(e){}
+    if (!stored) bar.hidden = false;
+    bar.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-consent]');
+      if (!btn) return;
+      try { localStorage.setItem(KEY, btn.getAttribute('data-consent')); } catch(e){}
+      bar.hidden = true;
+    });
+  })();
+</script>
+</body>
+</html>

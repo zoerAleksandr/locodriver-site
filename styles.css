@@ -243,6 +243,82 @@ ul{margin:0}
 .legal-table th{background:var(--bg);color:var(--ink);font-weight:700;font-size:12px;white-space:nowrap}
 .legal-table td.purpose{background:var(--accentSoft);color:var(--ink);font-weight:600}
 
+/* ═══════════════ News (новости) ═══════════════ */
+/* ── Кнопка «Открыть веб-версию» — акцентная, как btn-fill, но инлайновая ── */
+.btn-web{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:14px;
+  background:var(--accent);color:#fff;font-weight:700;font-size:15px;white-space:nowrap}
+.btn-web:hover{color:#fff;background:var(--accentHover)}
+
+/* ── Выдержка на главной: компактная карточка последней новости, первой под шапкой ── */
+.news-band{padding:16px 0 0;scroll-margin-top:80px}
+.news-card{position:relative;max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:24px 32px 24px 34px;overflow:hidden}
+.news-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+.news-card__meta{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.news-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accentSoft);color:var(--accent);
+  padding:5px 11px;border-radius:999px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1.4px}
+.news-tag::before{content:"";width:6px;height:6px;border-radius:3px;background:var(--accent)}
+.news-date{font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.4px}
+.news-card h2{font-size:clamp(20px,2.4vw,26px);font-weight:800;letter-spacing:-.6px;line-height:1.15;margin-bottom:8px}
+.news-card h2 a{color:var(--ink)}
+.news-card h2 a:hover{color:var(--accent)}
+.news-card p{font-size:15.5px;color:var(--muted);line-height:1.5;margin:0 0 14px;max-width:600px}
+.news-card__actions{display:flex;flex-direction:column;align-items:center;gap:12px}
+.news-card__all{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--muted)}
+.news-card__all:hover{color:var(--ink)}
+
+/* Платформы — ссылки на раздел «Где открыть» в новости */
+.platforms{display:flex;gap:8px;flex-wrap:wrap}
+.pf{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink);
+  padding:7px 12px 7px 9px;border-radius:999px;border:1px solid var(--border);background:var(--bg);transition:border-color .2s,color .2s}
+.pf:hover{color:var(--accent);border-color:var(--accent)}
+.pf svg{color:var(--accent)}
+
+/* ── Страница news.html ── */
+.news-intro{padding:64px 0 24px}
+.news-intro h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-1.4px;line-height:1.04;max-width:760px;margin-bottom:16px}
+.news-intro .lead{max-width:600px;margin:0}
+.news-list{padding:16px 0 96px;display:flex;flex-direction:column;gap:28px}
+.news-item{scroll-margin-top:96px;background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:clamp(28px,4vw,48px)}
+.news-item h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.9px;line-height:1.08;margin:0 0 20px;max-width:760px}
+.news-item h2 a{color:inherit}
+.news-item h3{font-size:22px;font-weight:700;letter-spacing:-.4px;margin:40px 0 14px;scroll-margin-top:96px}
+.news-item h4{font-size:17px;font-weight:700;letter-spacing:-.2px;margin:0 0 6px}
+.news-item p{font-size:17px;color:var(--muted);line-height:1.6;margin:0 0 14px;max-width:720px}
+.news-item p b{color:var(--ink);font-weight:600}
+.news-item .bullets{margin:8px 0 0;max-width:720px}
+.news-item .bullets li span:last-child{font-size:16.5px;color:var(--ink)}
+.news-item .bullets li span:last-child small{display:block;font-size:14.5px;color:var(--muted);margin-top:2px}
+.news-item .cta{margin-top:36px}
+
+/* «Где открыть»: строки-платформы */
+.platform-list{display:flex;flex-direction:column;gap:10px;max-width:720px}
+.platform{display:flex;align-items:flex-start;gap:16px;background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px 18px}
+.platform__icon{flex:none;width:42px;height:42px;border-radius:12px;background:var(--accentSoft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center}
+.platform p{font-size:15px;margin:0;line-height:1.5}
+
+/* Инструкция по установке на iPhone: 3 шага со скриншотами */
+.install-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:24px;counter-reset:istep}
+.install-step .phone{margin-bottom:18px}
+.install-step__n{counter-increment:istep;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;
+  background:var(--accentSoft);color:var(--accent);font-family:var(--mono);font-weight:700;font-size:14px;margin-bottom:10px}
+.install-step__n::before{content:counter(istep)}
+.install-step p{font-size:15.5px;line-height:1.55;margin:0}
+.install-step .k{font-family:var(--mono);font-size:13px;background:var(--subtle);color:var(--ink);padding:1px 7px;border-radius:6px}
+
+/* ═══ Responsive: news ═══ */
+@media(max-width:900px){
+  .news-card{grid-template-columns:1fr;gap:18px;padding:22px 22px 22px 26px}
+  .news-card__actions{flex-direction:row;align-items:center;flex-wrap:wrap}
+  .install-steps{grid-template-columns:1fr;gap:32px}
+  .install-step .phone{--pw:240px}
+}
+@media(max-width:560px){
+  .news-card,.news-item{border-radius:20px}
+  .platform{padding:14px;gap:12px}
+}
+
 /* ═══ Responsive ═══ */
 @media(max-width:1024px){
   .wrap{padding:0 28px}
